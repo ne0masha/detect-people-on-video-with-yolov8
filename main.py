@@ -29,9 +29,22 @@ while ret:
         # detect objects
         results = model.track(frame, persist=True)
 
+        # result processing: left only people
+        for result in results:
+            for box in result.boxes:
+                class_name = model.names[int(box.cls[0].item())]
+
+                bbox = box.xyxy[0].numpy()  # transform to numpy array
+                confidence = box.conf[0].item()
+
+                # draw a box
+                x1, y1, x2, y2 = map(int, bbox)
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # green box
+
         # write the result in output_video
         out.write(frame)
 
+        # to break the processing
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break
 
