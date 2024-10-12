@@ -6,7 +6,7 @@ model = YOLO('yolov8n.pt')
 
 
 # load video
-video_path = 'input_video_2.mp4'
+video_path = 'input/short_input_video_2.mp4'
 cap = cv2.VideoCapture(video_path)
 
 # get the output_video parameters
