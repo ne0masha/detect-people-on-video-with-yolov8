@@ -1,12 +1,18 @@
 from ultralytics import YOLO
 import cv2
+import os
 
 # use YOLOv8
 model = YOLO('yolov8n.pt')
 
+video_path = 'input/input_video.mp4'
+
+# check if the input file exists
+if not os.path.isfile(video_path):
+    print("Error: input video doesn't exist.")
+    exit(1)
 
 # load video
-video_path = 'input/short_input_video_2.mp4'
 cap = cv2.VideoCapture(video_path)
 
 # get the output_video parameters
@@ -16,6 +22,9 @@ fps = cap.get(cv2.CAP_PROP_FPS)
 
 # specify the output_video parameters
 output_path = 'output/output_video.mp4'
+output_dir = 'output'
+if not os.path.exists(output_path):
+    os.makedirs(output_dir)
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
