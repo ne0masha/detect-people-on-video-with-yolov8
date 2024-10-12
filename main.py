@@ -6,7 +6,7 @@ model = YOLO('yolov8n.pt')
 
 
 # load video
-video_path = 'input/input_video.mp4'
+video_path = 'input_video_2.mp4'
 cap = cv2.VideoCapture(video_path)
 
 # get the output_video parameters
@@ -27,7 +27,7 @@ while ret:
 
     if ret:
         # detect objects
-        results = model.track(frame, persist=True)
+        results = model.track(frame, persist=True, conf=0.3)
 
         # result processing: left only people
         for result in results:
