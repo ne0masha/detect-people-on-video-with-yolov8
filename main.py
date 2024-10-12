@@ -34,12 +34,13 @@ while ret:
             for box in result.boxes:
                 class_name = model.names[int(box.cls[0].item())]
 
-                bbox = box.xyxy[0].numpy()  # transform to numpy array
-                confidence = box.conf[0].item()
+                if class_name == 'person':
+                    bbox = box.xyxy[0].numpy()  # transform to numpy array
+                    confidence = box.conf[0].item()
 
-                # draw a box
-                x1, y1, x2, y2 = map(int, bbox)
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # green box
+                    # draw a box
+                    x1, y1, x2, y2 = map(int, bbox)
+                    cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # green box
 
         # write the result in output_video
         out.write(frame)
